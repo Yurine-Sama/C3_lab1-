@@ -6,15 +6,11 @@ public class MyPlayerBehaviour : MonoBehaviour
 {
 
    
-    //Never set the value of a public variable here - the inspector will override it without telling you.
-    //If you need to, set it in Start() instead
-    public float speed; //'float' is short for floating point number, which is basically just a normal number
-
-    //public List<WeaponBehaviour> weapons = new List<WeaponBehaviour>();
-    //public weapons[WeaponBehaviour] = new ArrayList[weapons];
+     public float speed; 
     public int arraySize;
-    public WeaponBehaviour[] weapons = new WeaponBehaviour[10];
-    public int selectedWeaponIndex;
+    public WeaponBehaviour[] weapons = new WeaponBehaviour[arraySize];
+    int selectedWeaponIndex;
+    int addWeaponIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +20,9 @@ public class MyPlayerBehaviour : MonoBehaviour
         for (int index = 0;index<arraySize;index++ ){
             weapons[index]= new WeaponBehaviour();
         }
+        selectedWeaponIndex = 0;
+        addWeaponIndex = 0;
+        
     }
 
     // Update is called once per frame
@@ -94,11 +93,11 @@ public class MyPlayerBehaviour : MonoBehaviour
         WeaponBehaviour theirWeapon = other.GetComponentInParent<WeaponBehaviour>();
         if (theirWeapon != null)
         {
-            for(int i = 0; i < weapons.Length; i++){
-                 //Add it to our internal list
-                 if( i == selectedWeaponIndex){
-                     weapons[i] = theirWeapon;
-                 }
+             if ( addweaponIndex < arraySize )
+            {
+                weapons[addweaponIndex] = theirWeapon;
+                addweaponIndex++;
+            }
                  
             //weapons.Add(theirWeapon);
             //Move it to our location
